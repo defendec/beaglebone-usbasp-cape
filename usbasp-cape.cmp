@@ -1,0 +1,10 @@
+Cmp-Mod V01 Created by CvPcb (2013-09-06 BZR 4312)-stable date = L 30 aug   2014 15:44:09 EEST
+
+BeginCmp
+TimeStamp = /540259E7;
+Reference = U1;
+ValeurCmp = BEAGLEBONEBLACK;
+IdModule  = BEAGLEBONEBLACK;
+EndCmp
+
+EndListe
