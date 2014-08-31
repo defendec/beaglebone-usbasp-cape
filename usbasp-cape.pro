@@ -1,4 +1,4 @@
-update=N 28 aug   2014 14:35:21 EEST
+update=P 31 aug   2014 15:27:45 EEST
 version=1
 last_client=eeschema
 [general]
@@ -51,7 +51,7 @@ NetFmtName=PcbnewAdvanced
 RptD_X=0
 RptD_Y=100
 RptLab=1
-LabSize=50
+LabSize=32
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -84,3 +84,4 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=kicadlib/beagleboneblack
+LibName32=kicadlib/defendec
