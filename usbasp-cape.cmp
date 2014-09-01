@@ -1,10 +1,157 @@
-Cmp-Mod V01 Created by CvPcb (2013-09-06 BZR 4312)-stable date = L 30 aug   2014 15:44:09 EEST
+Cmp-Mod V01 Created by CvPcb (2013-09-06 BZR 4312)-stable date = E 01 sept  2014 10:15:44 EEST
+
+BeginCmp
+TimeStamp = /5403B329;
+Reference = C1;
+ValeurCmp = 100n;
+IdModule  = SM0603_Capa;
+EndCmp
+
+BeginCmp
+TimeStamp = /5403B70D;
+Reference = C2;
+ValeurCmp = 100n;
+IdModule  = SM0603_Capa;
+EndCmp
+
+BeginCmp
+TimeStamp = /540417CB;
+Reference = C3;
+ValeurCmp = 100n;
+IdModule  = SM0603_Capa;
+EndCmp
+
+BeginCmp
+TimeStamp = /54041A8D;
+Reference = C4;
+ValeurCmp = 100n;
+IdModule  = SM0603_Capa;
+EndCmp
+
+BeginCmp
+TimeStamp = /5402FF20;
+Reference = P1;
+ValeurCmp = CONN_2;
+IdModule  = PINHEAD1-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5402FF3A;
+Reference = P2;
+ValeurCmp = CONN_2;
+IdModule  = PINHEAD1-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5402FF4C;
+Reference = P3;
+ValeurCmp = CONN_2;
+IdModule  = PINHEAD1-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5402FF57;
+Reference = P4;
+ValeurCmp = CONN_2;
+IdModule  = PINHEAD1-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /54036964;
+Reference = P5;
+ValeurCmp = CONN_5X2;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /54037150;
+Reference = P6;
+ValeurCmp = CONN_5X2;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5403AF77;
+Reference = R1;
+ValeurCmp = 10k;
+IdModule  = SM0603_Resistor;
+EndCmp
+
+BeginCmp
+TimeStamp = /5403AF89;
+Reference = R2;
+ValeurCmp = 10k;
+IdModule  = SM0603_Resistor;
+EndCmp
+
+BeginCmp
+TimeStamp = /5403C5B1;
+Reference = R3;
+ValeurCmp = 10k;
+IdModule  = SM0603_Resistor;
+EndCmp
+
+BeginCmp
+TimeStamp = /54041C7A;
+Reference = R4;
+ValeurCmp = 0.2R;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /54041A4F;
+Reference = R5;
+ValeurCmp = 10k;
+IdModule  = SM0603_Resistor;
+EndCmp
+
+BeginCmp
+TimeStamp = /54041A63;
+Reference = R6;
+ValeurCmp = 10k;
+IdModule  = SM0603_Resistor;
+EndCmp
+
+BeginCmp
+TimeStamp = /5404238F;
+Reference = R7;
+ValeurCmp = 3.3k;
+IdModule  = SM0603_Resistor;
+EndCmp
+
+BeginCmp
+TimeStamp = /5404239F;
+Reference = R8;
+ValeurCmp = 3.3k;
+IdModule  = SM0603_Resistor;
+EndCmp
 
 BeginCmp
 TimeStamp = /540259E7;
 Reference = U1;
 ValeurCmp = BEAGLEBONEBLACK;
 IdModule  = BEAGLEBONEBLACK;
+EndCmp
+
+BeginCmp
+TimeStamp = /54033D8B;
+Reference = U2;
+ValeurCmp = SN74CBTLV3253;
+IdModule  = SO16N;
+EndCmp
+
+BeginCmp
+TimeStamp = /54033D9D;
+Reference = U3;
+ValeurCmp = SN74CBTLV3253;
+IdModule  = SO16N;
+EndCmp
+
+BeginCmp
+TimeStamp = /540417B7;
+Reference = U4;
+ValeurCmp = INA219;
+IdModule  = SO8N;
 EndCmp
 
 EndListe
