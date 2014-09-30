@@ -1,6 +1,6 @@
 Reference,Value,LibPart,Footprint,Qty,Farnell
 "C1, C2, C3, C4",100n,device:C,,4,
-"P1, P2, P3, P4",CONN_2,conn:CONN_2,,4,
+"P1, P2, P3, P4",CONN_2,conn:CONN_2,,4,9979611
 "P5, P6",CONN_5X2,conn:CONN_5X2,,2,1022236
 "R1, R2, R3, R5, R6",10k,device:R,,5,
 R4,0.2R,device:R,,1,
