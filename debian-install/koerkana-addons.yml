@@ -1,0 +1,81 @@
+#
+# koerkana-specific changes
+#
+# There will be two users - root and debian. Both have the same password, but only root
+# has ssh public keys. Would be probably better to just delete the "debian" user.
+#
+
+- hosts: koerkanad
+  remote_user: root
+  gather_facts: no
+  sudo: no
+  tasks:
+
+    # TODO: copy the koerkana setup-script
+
+    - name: Set up authorized_keys for the root user
+      authorized_key: user=root key="{{ item }}"
+      with_file:
+        - files/public_keys/id_elmo_trolla.pub
+        - files/public_keys/id_testlind.pub
+        - files/public_keys/id_koerkana-tunnel.pub
+        - files/public_keys/id_andres_vahter.pub
+        - files/public_keys/id_mattis_marjak.pub
+
+    # password generated with "mkpasswd --method=SHA-512" on linux. "apt-get install mkpasswd".
+    - name: Set 'root' user password.
+      user: name=root password="$6$tiExNKFsIYAuLN$ZUwISToe34Wx33NF8HXwj8bc0KPEC40y9mbETwb0F1PdkkkCKl5ShQ18AxznlB.Y3lFmpscXMaqUNOLVbdDiW0"
+    - name: Set 'debian' user password.
+      user: name=debian password="$6$tiExNKFsIYAuLN$ZUwISToe34Wx33NF8HXwj8bc0KPEC40y9mbETwb0F1PdkkkCKl5ShQ18AxznlB.Y3lFmpscXMaqUNOLVbdDiW0"
+
+    # ----
+
+    - name: Copy kana scripts
+      copy: src=files/usr-local-bin/ dest=/usr/local/bin owner=root group=root mode=0755
+      tags:
+      - scripts
+
+    - name: Copy autossh@.service to /etc/systemd/system/
+      copy: src=files/autossh@.service dest=/etc/systemd/system/autossh@.service owner=root group=root mode=0644
+#      register: copy_result_autossh
+#      tags:
+#      - autossh
+
+#    - name: Enable autossh background service
+#      service: name=autossh@15000 enabled=yes
+#      tags:
+#      - autossh
+
+    # - name: Copy autossh.service to /etc/systemd/system/ . But first change the reverse-forwarded tunnel port to 'koerkana_tunnel_port'
+    #   template: src=autossh.service dest=/etc/systemd/system/autossh.service owner=root group=root mode=0644
+    #   register: copy_result_autossh
+    #   tags:
+    #   - autossh
+
+    # - name: Enable autossh background service
+    #   service: name=autossh enabled=yes
+    #   tags:
+    #   - autossh
+
+    - name: Copy kana-setup-pins.service
+      copy: src=files/kana-setup-pins.service dest=/etc/systemd/system/ owner=root group=root mode=0644
+      register: copy_result_kana
+
+    - name: Enable kana-setup-pins.service
+      service: name=kana-setup-pins enabled=yes
+
+    # TODO: have to restart the service? or is this enough?
+    - name: systemctl --system daemon-reload
+      command: systemctl --system daemon-reload
+      when: copy_result_kana.changed
+      #when: copy_result_kana.changed or copy_result_autossh.changed
+      tags:
+      - autossh
+
+    # ssh for debian, sshd for arch linux
+    - name: Restart ssh daemon
+      service: name=ssh state=restarted
+
+#
+# NOW RESTART THE BEAGLEBONE
+#

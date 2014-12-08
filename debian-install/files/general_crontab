@@ -1,0 +1,5 @@
+# SD-card care every night.
+0 2 * * * root /sbin/fstrim -v /
+
+# Save current time. Will be used on bootup to restore the time. (No RTC on the RaspberryPi)
+*/15 * * * * root /sbin/fake-hwclock

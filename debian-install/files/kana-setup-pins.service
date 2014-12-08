@@ -1,0 +1,9 @@
+[Unit]
+Description=Conf pins used for target avr board selection and reset
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "/usr/local/bin/kana-setup-pins.sh"
+
+[Install]
+WantedBy=multi-user.target

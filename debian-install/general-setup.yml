@@ -1,0 +1,73 @@
+﻿#
+# General setup of fresh debian jessie image.
+#
+
+- hosts: beaglebones_generalsetup
+  remote_user: root
+  gather_facts: no
+  sudo: no
+  tasks:
+    - name: Change hostname.
+      hostname: name={{ hostname }}
+
+    - name: Set up authorized_keys for the root user
+      authorized_key: user=root key="{{ item }}"
+      with_file:
+        - files/public_keys/id_elmo_trolla.pub
+        - files/public_keys/id_testlind.pub
+        - files/public_keys/id_koerkana-tunnel.pub
+        - files/public_keys/id_andres_vahter.pub
+        - files/public_keys/id_mattis_marjak.pub
+
+    # ----
+
+    - name: Install fake-hwclock. For systems without RTC. save time every 15 min using cron and restores on boot.
+      apt: name=fake-hwclock state=present
+    - service: name=fake-hwclock enabled=yes state=restarted
+
+    - name: Add .vimrc to root user
+      copy: src=files/_vimrc dest=/root/.vimrc owner=root group=root
+
+    - name: Copy vim conf directory
+      copy: src=files/_vim/ dest=/root/.vim owner=root group=root
+
+    - name: Add our own .bashrc to root user.
+      copy: src=files/_bashrc_root dest=/root/.bashrc owner=root group=root
+
+    - name: Add our crontab file. (for fstrim and hwclock)
+      copy: src=files/general_crontab dest=/etc/cron.d/general_crontab owner=root group=root
+
+    # # ssh for debian, sshd for arch linux
+    # - name: Restart ssh daemon
+    #   service: name=ssh state=restarted
+
+    # - name: Install packages. Most are actually already installed.
+    #   apt: name={{ item }} state=latest update_cache=yes
+    #   with_items:
+    #     - vim
+    #     - htop
+    #     - rsync
+    #     - ntp
+    #     - zip
+    #     - unzip
+    #     - git
+    #     - lsof
+    #     - tree
+    #     - autossh
+    #     - cpufrequtils
+
+
+#
+# NOW RESTART THE BEAGLEBONE
+#
+
+# ---------------------------------------------------------------------------
+
+#
+# notes:
+#
+#- name: Disallow password authentication
+#  lineinfile: dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication no" state=present
+#- name: Change default SSH port from 22 to 23428
+#  lineinfile: dest=/etc/ssh/sshd_config regexp="^Port " line="Port 23428" state=present
+#
