@@ -473,4 +473,10 @@ Make a copy of the koerkana image and start using it.
   * ssh-keygen for a fresh key
   * copy the ssh key to your testserver authorized_keys
   * change bbb id/hostname/autosssh port with: kana-change-id.sh kana_num
-  * /opt/scripts/tools/grow_partition.sh
+  * /opt/scripts/tools/grow_partition.sh ?
+
+
+    cd /opt/scripts/tools
+    git pull
+    ./grow_partition.sh
+    sudo reboot
