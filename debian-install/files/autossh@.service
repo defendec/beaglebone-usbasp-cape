@@ -7,7 +7,7 @@ After=network-online.target
 
 [Service]
 Environment=AUTOSSH_GATETIME=0 AUTOSSH_DEBUG=0
-ExecStart=/usr/bin/autossh -M 0 -v -N -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R %i:localhost:22 koerkana-tunnel@test2.arupuru.com
+ExecStart=/usr/bin/autossh -M 0 -N -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R %i:localhost:22 koerkana-tunnel@test2.arupuru.com
 
 [Install]
 WantedBy=multi-user.target

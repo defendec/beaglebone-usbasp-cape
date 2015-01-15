@@ -30,6 +30,9 @@
 
     # ----
 
+    - name: Copy readme
+      copy: src=files/readme.txt dest=/root/ owner=root group=root mode=0644
+
     - name: Copy kana scripts
       copy: src=files/usr-local-bin/ dest=/usr/local/bin owner=root group=root mode=0755
       tags:

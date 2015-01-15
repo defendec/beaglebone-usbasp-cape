@@ -241,6 +241,40 @@ Edit /etc/network/interfaces as is. I think it's not used anymore?:
 Reboot.
 
 
+Enable login through usb
+------------------------
+
+    https://eewiki.net/display/linuxonarm/BeagleBone+Black#BeagleBoneBlack-usbgadget
+    
+    steps outlined here:
+        
+        Provides http access to beaglebone black over usb.
+        Install udhcpd
+            sudo apt-get install udhcpd
+            
+        Edit: /etc/network/interfaces and add:
+
+            # Ethernet/RNDIS gadget (g_ether)
+            # ... or on host side, usbnet and random hwaddr
+            iface usb0 inet static
+                address 192.168.7.2
+                netmask 255.255.255.0
+                network 192.168.7.0
+                gateway 192.168.7.1
+            
+        Temp Script:
+
+            wget -c https://raw.github.com/RobertCNelson/tools/master/scripts/beaglebone-black-g-ether-load.sh
+            chmod +x beaglebone-black-g-ether-load.sh
+            sudo ./beaglebone-black-g-ether-load.sh
+
+
+Note: to make server drop dead ssh connections (necessary for server to release the forwarded port), you need to add these to your target server /etc/ssh/sshd_config
+
+    ClientAliveInterval 30
+    ClientAliveCountMax 3
+
+
 Finish setup with ansible
 -------------------------
 
@@ -335,7 +369,7 @@ to this:
       desc = "Use Linux SPI device in /dev/spidev1.0";
       type = "linuxspi";
       reset = 60;
-      baudrate=4000000;
+      baudrate=1000000;
     ;
 
     programmer
@@ -343,7 +377,7 @@ to this:
       desc = "Use Linux SPI device in /dev/spidev1.0";
       type = "linuxspi";
       reset = 66;
-      baudrate=4000000;
+      baudrate=1000000;
     ;        
 
 
@@ -458,13 +492,19 @@ And notes on how to get the new devicetree files to the bone SD (has to be mount
     root@koerkana0 13:43:25 :~# kana-select-port-1.sh; /usr/local/bin/avrdude -clinuxspi1 -P/dev/spidev1.0 -U hfuse:w:0xd8:m -pm128rfa1 -U efuse:w:0xf0:m -U flash:w:/tmp/main.srec:a
     root@koerkana0 13:43:25 :~# kana-select-port-2.sh; /usr/local/bin/avrdude -clinuxspi2 -P/dev/spidev1.0 -U hfuse:w:0xd8:m -pm128rfa1 -U efuse:w:0xf0:m -U flash:w:/tmp/main.srec:a
 
-    scp -P 15000 main.srec root@test2.arupuru.com:/tmp/ ; ssh root@test2.arupuru.com -p 15000 "kana-select-port-1.sh; /usr/local/bin/avrdude -clinuxspi1 -P/dev/spidev1.0 -U hfuse:w:0xd8:m -pm128rfa1 -U efuse:w:0xf0:m -U flash:w:/tmp/main.srec:a"
-    
-    avrdude -clinuxspi1 -b 5000000 -P/dev/spidev1.0 -U hfuse:w:0xd8:m -pm128rfa1 -U efuse:w:0xf0:m -U flash:w:main.srec:a
+    scp -P 15000 main.srec root@test2.arupuru.com:/tmp/ ; ssh root@test2.arupuru.com -p 15000 "kana-select-port-2.sh; /usr/local/bin/avrdude -clinuxspi2 -P/dev/spidev1.0 -U hfuse:w:0xd8:m -pm128rfa1 -U efuse:w:0xf0:m -U flash:w:/tmp/main.srec:a"
+
+    avrdude -clinuxspi1 -b 1000000 -P/dev/spidev1.0 -U hfuse:w:0xd8:m -pm128rfa1 -U efuse:w:0xf0:m -U flash:w:main.srec:a
 
 
-FINALLY
-=======
+Step 6: FINALLY
+===============
+
+To make server drop dead ssh connections (necessary for server to release the forwarded port), you need to add these lines to your target server /etc/ssh/sshd_config. Without these lines, the ssh login works ok but port forwarding fails for however long the tcp timeout is.
+
+    ClientAliveInterval 30
+    ClientAliveCountMax 3
+
 
 Make a copy of the koerkana image and start using it.
 
