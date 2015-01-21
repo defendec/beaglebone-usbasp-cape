@@ -60,6 +60,15 @@
     #   tags:
     #   - autossh
 
+    - name: Copy printf-uart-nanomsg@.service to /etc/systemd/system/
+      copy: src=files/printf-uart-nanomsg@.service dest=/etc/systemd/system/printf-uart-nanomsg@.service owner=root group=root mode=0644
+
+    - name: Enable printf-uart-nanomsg.service for uart 1
+      service: name=printf-uart-nanomsg@1.service enabled=yes
+
+    - name: Enable printf-uart-nanomsg.service for uart 4
+      service: name=printf-uart-nanomsg@4.service enabled=yes
+
     - name: Copy kana-setup-pins.service
       copy: src=files/kana-setup-pins.service dest=/etc/systemd/system/ owner=root group=root mode=0644
       register: copy_result_kana
@@ -74,6 +83,8 @@
       #when: copy_result_kana.changed or copy_result_autossh.changed
       tags:
       - autossh
+
+    # TODO: copy printf-uart-nanomsg.py
 
     # ssh for debian, sshd for arch linux
     - name: Restart ssh daemon

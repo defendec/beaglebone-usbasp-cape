@@ -1,0 +1,13 @@
+# http://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/
+# http://0pointer.de/blog/projects/instances.html
+
+[Unit]
+Description=printf-uart-nanomsg service to send uart traffic to test2.arupuru.com
+After=network-online.target
+
+[Service]
+Environment=AUTOSSH_GATETIME=0 AUTOSSH_DEBUG=0
+ExecStart=/usr/bin/python /root/printf-uart-nanomsg.py /dev/ttyO%i 500000
+
+[Install]
+WantedBy=multi-user.target
