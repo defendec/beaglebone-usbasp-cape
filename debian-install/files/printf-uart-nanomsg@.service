@@ -6,7 +6,7 @@ Description=printf-uart-nanomsg service to send uart traffic to test2.arupuru.co
 After=network-online.target
 
 [Service]
-Environment=AUTOSSH_GATETIME=0 AUTOSSH_DEBUG=0
+Environment=LD_LIBRARY_PATH=/usr/local/lib
 ExecStart=/usr/bin/python /root/printf-uart-nanomsg.py /dev/ttyO%i 500000
 
 [Install]
