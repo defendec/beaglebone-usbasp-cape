@@ -7,7 +7,7 @@ After=network-online.target
 
 [Service]
 Environment=LD_LIBRARY_PATH=/usr/local/lib
-ExecStart=/usr/bin/python /root/printf-uart-nanomsg.py /dev/ttyO%i 500000
+ExecStart=/usr/bin/python /root/nano-logging-tools/printf-uart-nanomsg/printf-uart-nanomsg.py /dev/ttyO%i 500000
 
 [Install]
 WantedBy=multi-user.target
